@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .email_utils import send_email
-from .tasks import send_scheduled_email
+from .utils import get_random_quote, get_random_subscriber
+from .tasks import send_scheduled_email, send_quote_email
 from datetime import datetime, timedelta
 import random
 
@@ -22,3 +23,12 @@ def schedule_emails(request):
     send_scheduled_email.apply_async(('jonathan.heaney@gmail.com', 'Hi from Celery', 'Celery is working!'), eta=scheduled_time)
 
     return HttpResponse("Email scheduled.")
+
+
+def send_test_email(request):
+   subscriber = get_random_subscriber()
+   quote = get_random_quote()
+   if subscriber and quote:
+       send_quote_email(subscriber.id, quote.id)
+       return HttpResponse("Test quote email sent.")
+   return HttpResponse("No subscriber or quote found.")
