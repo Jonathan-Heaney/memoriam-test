@@ -20,7 +20,7 @@ load_dotenv()
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 AWS_SES_REGION_NAME = 'us-east-1' 
-AWS_SES_REGION_ENDPOINT = 'email.us-east-1.amazonaws.com'  # Change to your SES endpoint
+AWS_SES_REGION_ENDPOINT = 'email.us-east-1.amazonaws.com'  
 
 # DB configuration
 DB_NAME = os.environ.get('DB_NAME')

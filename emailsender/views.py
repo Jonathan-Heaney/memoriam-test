@@ -16,9 +16,9 @@ def test_email(request):
 
 def schedule_emails(request):
     subscriber_email = 'jonathan.heaney@gmail.com'
-    random_minutes = random.randint(1, 5)
+    random_minutes = random.randint(1, 4)
     scheduled_time = datetime.now() + timedelta(minutes=random_minutes)
 
-    send_scheduled_email.apply_async(('jonathan.heaney@gmail.com', 'Subject 2', 'New Message 2'), eta=scheduled_time)
+    send_scheduled_email.apply_async(('jonathan.heaney@gmail.com', 'Hi from Celery', 'Celery is working!'), eta=scheduled_time)
 
     return HttpResponse("Email scheduled.")
