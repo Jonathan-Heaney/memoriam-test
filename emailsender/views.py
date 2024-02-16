@@ -16,7 +16,6 @@ def test_email(request):
 
 
 def schedule_emails(request):
-    subscriber_email = 'jonathan.heaney@gmail.com'
     random_minutes = random.randint(1, 4)
     scheduled_time = datetime.now() + timedelta(minutes=random_minutes)
 
@@ -28,7 +27,9 @@ def schedule_emails(request):
 def send_test_email(request):
    subscriber = get_random_subscriber()
    quote = get_random_quote()
+   random_minutes = random.randint(1, 4)
+   scheduled_time = datetime.now() + timedelta(minutes=random_minutes)
    if subscriber and quote:
-       send_quote_email(subscriber.id, quote.id)
+       send_quote_email.apply_async((subscriber.id, quote.id), eta=scheduled_time)
        return HttpResponse("Test quote email sent.")
    return HttpResponse("No subscriber or quote found.")
